@@ -21,20 +21,13 @@ jobs:
       - setup_remote_docker
       - run:
           name: Authenticate with Docker
-          command: |
-            echo "${DOCKER_PASSWORD}" | docker login -u ${DOCKER_USERNAME} --password-stdin
+          command: echo "${DOCKER_PASSWORD}" | docker login -u ${DOCKER_USERNAME} --password-stdin
       - run:
           name: Build app image
-          command: |
-            docker build --rm=false \
-            -t calebhurd/helloworld:${CIRCLE_SHA1} \
-            -t calebhurd/helloworld:${CIRCLE_BRANCH} \
-            -f ./Dockerfile .
+          command: docker build --rm=false -t calebhurd/helloworld:${CIRCLE_SHA1} -t calebhurd/helloworld:${CIRCLE_BRANCH} -f ./Dockerfile .
       - run:
           name: Push app image
-          command: |
-            docker push calebhurd/hello-world:${CIRCLE_SHA1}
-            docker push calebhurd/hello-world:${CIRCLE_BRANCH}
+          command: docker push calebhurd/hello-world:${CIRCLE_SHA1} && docker push calebhurd/hello-world:${CIRCLE_BRANCH}
   kubernetes_deploy:
     # Update the existing Kubernetes deployment to point to the new image
     docker:
