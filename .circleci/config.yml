@@ -68,16 +68,16 @@ workflows:
     jobs:
       # note: this step only runs on prod and staging branches.
       - docker_push:
-          filters:
-            branches:
-              only:
-                - prod
-                - staging
+#          filters:
+#            branches:
+#              only:
+#                - prod
+#                - staging
       - kubernetes_deploy:
-          filters:
-            branches:
-              only:
-                - prod
-                - staging
+#          filters:
+#            branches:
+#              only:
+#                - prod
+#                - staging
           requires:
             - docker_push
