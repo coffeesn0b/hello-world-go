@@ -1,9 +1,10 @@
 version: 2
 
 jobs:
-  build_and_test:
-    # ... insert your test suite here
-
+  build_and_test: # runs not using Workflows must have a `build` job as entry point
+    docker: # run the steps with Docker
+      # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
+      - image: calebhurd/helloworld #
   docker_push:
     # Build app container and push it to the GCR registry
     # Note: we want to build and push an image with tags based on both
