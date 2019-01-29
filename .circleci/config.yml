@@ -6,7 +6,6 @@ jobs:
       - image: calebhurd/hello-world:v2
     steps:
       - checkout
-      - run: <command>
   docker_push:
     # Build app container and push it to the GCR registry
     # Note: we want to build and push an image with tags based on both
