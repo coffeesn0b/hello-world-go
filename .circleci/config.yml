@@ -61,12 +61,12 @@ jobs:
             kubectl set image deployment/${DEPLOYMENT_PREFIX}-app ${DEPLOYMENT_PREFIX}-app=helloworld:${CIRCLE_SHA1}
 workflows:
   version: 2
-  build_and_test:
+  build:
     jobs:
       # note: skip tests on prod and staging branches.
       # This assumes your workflow ensures that tests pass in the dev branch
       # before the code is promoted to staging.
-      - build_and_test:
+      - build:
           filters:
             branches:
               ignore:
