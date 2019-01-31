@@ -29,8 +29,11 @@ jobs:
           name: Build app image
           command: docker build --rm=false -t calebhurd/helloworld:v2 -t calebhurd/helloworld:v2 -f ./Dockerfile .
       - run:
+          name: Tag the container
+          command: docker tag helloworld:v2 calebrhurd/hello-world:v2
+      - run:
           name: Push app image
-          command: docker push calebhurd/hello-world:v2 && docker push calebhurd/hello-world:v2
+          command: docker push calebhurd/hello-world:v2
   kubernetes_deploy:
     # Update the existing Kubernetes deployment to point to the new image
     docker:
