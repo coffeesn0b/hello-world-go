@@ -27,14 +27,14 @@ jobs:
           command: echo "${DOCKER_PASSWORD}" | docker login -u ${DOCKER_USERNAME} --password-stdin
       - run:
           name: Build app image
-          command: docker build --rm=false -t calebhurd/helloworld:${CIRCLE_SHA1} -t calebhurd/helloworld:${CIRCLE_BRANCH} -f ./Dockerfile .
+          command: docker build --rm=false -t calebhurd/helloworld:v2 -t calebhurd/helloworld:v2 -f ./Dockerfile .
       - run:
           name: Push app image
-          command: docker push calebhurd/hello-world:${CIRCLE_SHA1} && docker push calebhurd/hello-world:${CIRCLE_BRANCH}
+          command: docker push calebhurd/hello-world:v2 && docker push calebhurd/hello-world:v2
   kubernetes_deploy:
     # Update the existing Kubernetes deployment to point to the new image
     docker:
-      - image: calebhurd/helloworld:v2
+      - image: google/cloud-sdk:alpine
     working_directory: ~/repo
     steps:
       - run:
@@ -46,7 +46,7 @@ jobs:
             gcloud config set compute/zone "${GKE_ZONE}"
             gcloud config set project "${GKE_PROJECT}"
             gcloud container clusters get-credentials "${GKE_CLUSTER}" --zone "${GKE_ZONE}"
-            if [ "${CIRCLE_BRANCH}" == "prod" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 DEPLOYMENT_PREFIX="production"
             elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
                 DEPLOYMENT_PREFIX="staging"
