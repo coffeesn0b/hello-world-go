@@ -27,10 +27,10 @@ jobs:
           command: echo "${DOCKER_PASSWORD}" | docker login -u ${DOCKER_USERNAME} --password-stdin
       - run:
           name: Build app image
-          command: docker build --rm=false -t helloworld:v2 -t helloworld:v2 -f ./Dockerfile .
+          command: docker build --rm=false -t hello-world:v2 -t hello-world:v2 -f ./Dockerfile .
       - run:
           name: Tag the container
-          command: docker tag helloworld:v2 calebrhurd/hello-world:v2
+          command: docker tag hello-world:v2 calebrhurd/hello-world:v2
       - run:
           name: Push app image
           command: docker push calebhurd/hello-world:v2
@@ -57,7 +57,7 @@ jobs:
                 echo "unknown branch ${CIRCLE_BRANCH}"
                 exit 1
             fi
-            kubectl set image deployment/${DEPLOYMENT_PREFIX}-app ${DEPLOYMENT_PREFIX}-app=helloworld:${CIRCLE_SHA1}
+            kubectl set image deployment/${DEPLOYMENT_PREFIX}-app ${DEPLOYMENT_PREFIX}-app=hello-world:${CIRCLE_SHA1}
 workflows:
   version: 2
   build:
