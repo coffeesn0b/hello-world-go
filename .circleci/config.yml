@@ -30,7 +30,7 @@ jobs:
           command: docker build --rm=false -t hello-world:v2 -t hello-world:v2 -f ./Dockerfile .
       - run:
           name: Tag the container
-          command: docker tag hello-world:v2 calebrhurd/hello-world:v2
+          command: docker tag hello-world:v2 calebhurd/hello-world:v2
       - run:
           name: Lets see docker images locally
           command: docker images
