@@ -5,14 +5,14 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: "3"
   labels:
-    run: helloworld
-  name: helloworld
+    run: hello-world
+  name: hello-world
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: helloworld
+      run: hello-world
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -22,12 +22,12 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        run: helloworld
+        run: hello-world
     spec:
       containers:
-      - image: calebhurd/hello-world:v1
+      - image: calebhurd/hello-world:latest
         imagePullPolicy: IfNotPresent
-        name: helloworld
+        name: hello-world
         ports:
         - containerPort: 8080
           protocol: TCP
