@@ -32,6 +32,9 @@ jobs:
           name: Tag the container
           command: docker tag hello-world:v2 calebrhurd/hello-world:v2
       - run:
+          name: Lets see docker images locally
+          command: docker images
+      - run:
           name: Push app image
           command: docker push calebhurd/hello-world:v2
   kubernetes_deploy:
