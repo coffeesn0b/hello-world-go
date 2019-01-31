@@ -73,11 +73,13 @@ workflows:
               only:
                 - prod
                 - staging
+                - master
       - kubernetes_deploy:
           filters:
             branches:
               only:
                 - prod
                 - staging
+                - master
           requires:
             - docker_push
