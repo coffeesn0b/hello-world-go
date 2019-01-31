@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: calebhurd/hello-world:v2
+      - image: calebhurd/hello-world:latest
     steps:
       - checkout
   docker_push:
@@ -14,7 +14,7 @@ jobs:
     # dynamically tracks the latest build for each branch).
     docker:
       - image: bayesimpact/circleci
-#      - image: calebhurd/hello-world:v2
+#      - image: calebhurd/hello-world:latest
     working_directory: ~/repo
     steps:
       - checkout
@@ -27,16 +27,16 @@ jobs:
           command: echo "${DOCKER_PASSWORD}" | docker login -u ${DOCKER_USERNAME} --password-stdin
       - run:
           name: Build app image
-          command: docker build --rm=false -t hello-world:v2 -t hello-world:v2 -f ./Dockerfile .
+          command: docker build --rm=false -t hello-world:latest -t hello-world:latest -f ./Dockerfile .
       - run:
           name: Tag the container
-          command: docker tag hello-world:v2 calebhurd/hello-world:v2
+          command: docker tag hello-world:latest calebhurd/hello-world:latest
       - run:
           name: Lets see docker images locally
           command: docker images
       - run:
           name: Push app image
-          command: docker push calebhurd/hello-world:v2
+          command: docker push calebhurd/hello-world:latest
   kubernetes_deploy:
     # Update the existing Kubernetes deployment to point to the new image
     docker:
@@ -60,7 +60,7 @@ jobs:
                 echo "unknown branch ${CIRCLE_BRANCH}"
                 exit 1
             fi
-            kubectl set image deployment/${DEPLOYMENT_PREFIX}-app ${DEPLOYMENT_PREFIX}-app=hello-world:${CIRCLE_SHA1}
+            kubectl set image deployment/${DEPLOYMENT_PREFIX}-app ${DEPLOYMENT_PREFIX}-app=hello-world:latest
 workflows:
   version: 2
   build:
