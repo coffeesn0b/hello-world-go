@@ -27,7 +27,7 @@ jobs:
           command: echo "${DOCKER_PASSWORD}" | docker login -u ${DOCKER_USERNAME} --password-stdin
       - run:
           name: Build app image
-          command: docker build --rm=false -t calebhurd/helloworld:v2 -t calebhurd/helloworld:v2 -f ./Dockerfile .
+          command: docker build --rm=false -t helloworld:v2 -t helloworld:v2 -f ./Dockerfile .
       - run:
           name: Tag the container
           command: docker tag helloworld:v2 calebrhurd/hello-world:v2
