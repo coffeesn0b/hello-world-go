@@ -7,14 +7,8 @@ jobs:
     steps:
       - checkout
   docker_push:
-    # Build app container and push it to the GCR registry
-    # Note: we want to build and push an image with tags based on both
-    # the Git commit hash AND the branch name. This way, we can refer to
-    # images by commit (which is immutable) or branch name (which
-    # dynamically tracks the latest build for each branch).
     docker:
       - image: bayesimpact/circleci
-#      - image: calebhurd/hello-world:latest
     working_directory: ~/repo
     steps:
       - checkout
